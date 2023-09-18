@@ -161,3 +161,6 @@ dataset/
 model.pkl
 /digit_recognizer.pkl
 /lenet_model.pkl
+
+# All files ending with .pkl
+*.pkl
