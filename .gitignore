@@ -159,3 +159,5 @@ cython_debug/
 # Dataset
 dataset/
 model.pkl
+/digit_recognizer.pkl
+/lenet_model.pkl
