@@ -46,7 +46,7 @@ export const sweetAlert = (status, predi, acc, idPredi) => {
     })
   } else if (status === "predi") {
     Swal.fire({
-      title: 'Accuracy: ' + acc.toFixed(2) + '%',
+      title: 'Your predi is ' + (acc * 100).toFixed(2) + '%',
       text: 'If is not correct, please click on the red button to say us the correct number. If is correct, please click on the correct button to do again.',
       imageUrl: getImageByNumber(predi),
       imageWidth: 64,
@@ -81,7 +81,7 @@ export const sweetAlert = (status, predi, acc, idPredi) => {
 
             if (res.status === "success") {
               Swal.fire({
-                title: 'Thanks for help us!',
+                title: 'Thanks for helping us!',
                 text : 'By helping us, you are helping the world!',
                 icon: 'success'
               })
