@@ -12,10 +12,10 @@ const ToolsBar = () => {
         <ContainerToolsBar>
           <ContainerTools>
             <PencilTools/>
+            <ColorPencilTools/>
             <BackgroundTools/>
             <HeightTools/>
             <WidthTools/>
-            <ColorPencilTools/>
           </ContainerTools>
         </ContainerToolsBar>
       </>
