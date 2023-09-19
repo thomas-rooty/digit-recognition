@@ -116,7 +116,6 @@ export default forwardRef(Canvas);
 
 
 const ContainerCanvas = styled.div`
-  margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;

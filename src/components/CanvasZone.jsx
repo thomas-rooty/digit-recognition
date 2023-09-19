@@ -41,19 +41,18 @@ const CanvasZone = () => {
 
   return (
       <ContainerCanvasZone>
-        <Canvas
-            ref={canvasRef}
-            userHasDrawn={userHasDrawn}
-            setUserHasDrawn={setUserHasDrawn}
-        />
-        {
-          userHasDrawn &&
-            <ActionsButtons>
-              <ResetButton func={handleResetCanvas}>Réinitialiser</ResetButton>
-              <ValidateButton func={handleSubmitCanvas}>Valider</ValidateButton>
-            </ActionsButtons>
-        }
-
+          <Canvas
+              ref={canvasRef}
+              userHasDrawn={userHasDrawn}
+              setUserHasDrawn={setUserHasDrawn}
+          />
+          {
+              userHasDrawn &&
+              <ActionsButtons>
+                <ResetButton func={handleResetCanvas}>Réinitialiser</ResetButton>
+                <ValidateButton func={handleSubmitCanvas}>Valider</ValidateButton>
+              </ActionsButtons>
+          }
       </ContainerCanvasZone>
   )
 }
@@ -61,9 +60,7 @@ const CanvasZone = () => {
 export default CanvasZone;
 
 const ContainerCanvasZone = styled.div`
-  margin-top: 5px;
-  justify-content: center;
-  align-items: center;
+  margin: 8rem 0;
 `;
 
 const ActionsButtons = styled.div`
