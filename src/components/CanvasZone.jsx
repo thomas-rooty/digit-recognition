@@ -3,6 +3,7 @@ import Canvas from "./Canvas.jsx";
 import {useRef, useState} from "react";
 import ResetButton from "./ResetButton.jsx";
 import ValidateButton from "./ValidateButton.jsx";
+import {API_URL, sweetAlert} from "../utils/index.js";
 
 const CanvasZone = () => {
 
@@ -18,7 +19,22 @@ const CanvasZone = () => {
 
   const handleSubmitCanvas = async () => {
     const image = canvasRef.current.submitCanvas();
-    console.log(image)
+    const blob = await fetch(image).then(r => r.blob());
+    const formData = new FormData();
+    formData.append("image", blob);
+    const response = await fetch(API_URL + "/recognize_digit/", {
+      method: "POST",
+      body: formData
+    })
+    const data = await response.json();
+
+    if (data.digit && data.confidence) {
+      sweetAlert("predi", data.digit, data.confidence, data.id);
+    } else {
+      sweetAlert("error", data.error);
+    }
+
+
   }
 
 
