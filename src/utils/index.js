@@ -10,7 +10,11 @@ import ImageEight from '../assets/predi/eight.png';
 import ImageNine from '../assets/predi/nine.png';
 
 
-export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+export const API_URL = "https://djangoai.eu-4.evennode.com"
+
+export const randomNumBetween1And9 = () => {
+  return Math.floor(Math.random() * 9) + 1;
+}
 
 const getImageByNumber = (number) => {
   switch (number) {
@@ -100,3 +104,17 @@ export const sweetAlert = (status, predi, acc, idPredi) => {
   }
 
 };
+
+export const getCaptchaDelockFromLocalStorage = () => {
+  console.log(localStorage.getItem("captchadelock") ?? false);
+  return localStorage.getItem("captchadelock") ?? false;
+}
+
+export const setCaptchaDelockFromLocalStorage = (value) => {
+  localStorage.setItem("captchadelock", value);
+}
+
+export const convertCanvasToImage = async (canvas) => {
+  const image = canvas.current.submitCanvas();
+  return await fetch(image).then(r => r.blob());
+}

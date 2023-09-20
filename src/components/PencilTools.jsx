@@ -1,10 +1,12 @@
 import PencilPng from '../assets/pencil.png';
 import styled from "styled-components";
 import {useTools} from "../contexts/ToolsContext.jsx";
+import {useCaptcha} from "../contexts/CaptchaContext.jsx";
 
 const PencilTools = () => {
 
   const {pencilWidth, setPencilWidth} = useTools();
+  const {handleCheckCaptcha, captchaDelock} = useCaptcha();
 
   return (
       <ContainerPencilTools>
@@ -14,16 +16,26 @@ const PencilTools = () => {
           <ContainerActionsButtons>
             <button
                 onClick={() => {
-                  pencilWidth < 15 &&
-                  setPencilWidth(pencilWidth + 1)
+                  if (!captchaDelock) {
+                    handleCheckCaptcha();
+                  } else {
+                    if (pencilWidth < 15) {
+                      setPencilWidth(pencilWidth + 1)
+                    }
+                  }
                 }}
             >
               +
             </button>
             <button
                 onClick={() => {
-                  pencilWidth > 1 &&
-                  setPencilWidth(pencilWidth - 1)
+                  if (!captchaDelock) {
+                    handleCheckCaptcha();
+                  } else {
+                    if (pencilWidth > 1) {
+                      setPencilWidth(pencilWidth - 1)
+                    }
+                  }
                 }}
             >
               -

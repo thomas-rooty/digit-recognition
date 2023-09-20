@@ -1,6 +1,7 @@
 import HeightPng from '../assets/height.png';
 import {ContainerActionsButtons, ContainerPencilTools, ContainerPencilToolsNumber} from "./PencilTools.jsx";
 import {useTools} from "../contexts/ToolsContext.jsx";
+import {useCaptcha} from "../contexts/CaptchaContext.jsx";
 
 const HeightTools = () => {
 
@@ -8,6 +9,7 @@ const HeightTools = () => {
     heigthSize,
     setHeigthSize,
   } = useTools();
+  const {handleCheckCaptcha, captchaDelock} = useCaptcha();
 
   return (
       <ContainerPencilTools>
@@ -17,14 +19,27 @@ const HeightTools = () => {
           <ContainerActionsButtons>
             <button
                 onClick={() => {
-                  heigthSize < 650 && setHeigthSize(heigthSize + 10)
+                  if (!captchaDelock) {
+                    handleCheckCaptcha();
+                  } else {
+                    if (heigthSize < 650) {
+                      setHeigthSize(heigthSize + 10)
+                    }
+                  }
+
                 }}
             >
               +
             </button>
             <button
                 onClick={() => {
-                  heigthSize > 10 && setHeigthSize(heigthSize - 10)
+                  if (!captchaDelock) {
+                    handleCheckCaptcha();
+                  } else {
+                    if (heigthSize > 10) {
+                      setHeigthSize(heigthSize - 10)
+                    }
+                  }
                 }}
             >
               -

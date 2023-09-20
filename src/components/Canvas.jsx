@@ -4,7 +4,10 @@ import {useTools} from "../contexts/ToolsContext.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Canvas = ({setUserHasDrawn, ...props}, ref) => {
+const Canvas = ({setUserHasDrawn, isCaptcha ,  ...props}, ref) => {
+
+  const canvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
 
   const {
     pencilWidth,
@@ -12,58 +15,81 @@ const Canvas = ({setUserHasDrawn, ...props}, ref) => {
     widthSize,
     heigthSize,
     pencilColor
-  } = useTools();
+  } = useTools() || {};
 
   // listEvents
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    context.fillStyle = backgroundColor;
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-  }, [backgroundColor]);
+    if (!isCaptcha) {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      context.fillStyle = backgroundColor;
+      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    }
+  }, [backgroundColor, isCaptcha]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d')
-    context.canvas.height = heigthSize;
-    context.canvas.width = widthSize;
-    context.fillStyle = backgroundColor;
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height)
-  }, [widthSize, heigthSize]);
+    if (!isCaptcha) {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d')
+      context.canvas.height = heigthSize;
+      context.canvas.width = widthSize;
+      context.fillStyle = backgroundColor;
+      context.fillRect(0, 0, context.canvas.width, context.canvas.height)
+    }
+  }, [widthSize, heigthSize, isCaptcha]);
 
-  const canvasRef = useRef(null);
-  const [isDrawing, setIsDrawing] = useState(false);
+
 
   useEffect(() => {
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-    context.canvas.height = heigthSize;
-    context.canvas.width = widthSize;
-    context.fillStyle = backgroundColor;
+    context.canvas.height = !isCaptcha ? heigthSize : 200;
+    context.canvas.width = !isCaptcha ? widthSize : 200;
+    context.fillStyle = !isCaptcha ? backgroundColor : "#000000";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height)
   }, [])
 
 
   useEffect(() => {
+
+    if (isCaptcha) {
+
+      console.log("isDrawing", isDrawing);
+    }
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
     context.strokeStyle = 'white';
     context.lineJoin = 'round';
-    context.lineWidth = pencilWidth;
+    context.lineWidth = !isCaptcha ? pencilWidth : 8;
 
     const startDrawing = (e) => {
       setIsDrawing(true);
       context.beginPath();
-      context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      if (!isCaptcha) {
+        context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      } else {
+        const canvasRect = canvas.getBoundingClientRect();
+        context.moveTo(e.clientX - canvasRect.left, e.clientY - canvasRect.top);
+
+      }
     };
 
     const draw = (e) => {
       if (!isDrawing) return;
       setUserHasDrawn(true);
-      context.strokeStyle = pencilColor;
-      context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      context.strokeStyle = !isCaptcha ? pencilColor : "#ffffff";
+
+      if (!isCaptcha) {
+        context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      } else {
+        const canvasRect = canvas.getBoundingClientRect();
+        context.lineTo(e.clientX - canvasRect.left, e.clientY - canvasRect.top);
+
+      }
+
+
       context.stroke();
     };
 
@@ -97,7 +123,7 @@ const Canvas = ({setUserHasDrawn, ...props}, ref) => {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
 
-      context.fillStyle = backgroundColor;
+      context.fillStyle = !isCaptcha ? backgroundColor : "#000000";
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);
     },
     submitCanvas() {

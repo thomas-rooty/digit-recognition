@@ -1,6 +1,7 @@
 import WidthPng from '../assets/width.png';
 import {ContainerActionsButtons, ContainerPencilTools, ContainerPencilToolsNumber} from "./PencilTools.jsx";
 import {useTools} from "../contexts/ToolsContext.jsx";
+import {useCaptcha} from "../contexts/CaptchaContext.jsx";
 
 const WidthTools = () => {
 
@@ -8,6 +9,7 @@ const WidthTools = () => {
     widthSize,
     setWidthSize,
   } = useTools();
+  const {handleCheckCaptcha, captchaDelock} = useCaptcha();
 
   return (
       <ContainerPencilTools>
@@ -17,14 +19,27 @@ const WidthTools = () => {
           <ContainerActionsButtons>
             <button
                 onClick={() => {
-                  widthSize < 1500 && setWidthSize(widthSize + 10)
+                  if (!captchaDelock) {
+                    handleCheckCaptcha();
+                  } else {
+                    if (widthSize < 1500) {
+                      setWidthSize(widthSize + 10)
+                    }
+                  }
+
                 }}
             >
               +
             </button>
             <button
                 onClick={() => {
-                  widthSize > 10 && setWidthSize(widthSize - 10)
+                  if (!captchaDelock) {
+                    handleCheckCaptcha();
+                  } else {
+                    if (widthSize > 10) {
+                      setWidthSize(widthSize - 10)
+                    }
+                  }
                 }}
             >
               -

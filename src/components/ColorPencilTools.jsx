@@ -6,11 +6,13 @@ import ArrowUpPng from '../assets/up-arrows.png';
 import styled from "styled-components";
 import {useState} from "react";
 import {ChromePicker} from "react-color";
+import {useCaptcha} from "../contexts/CaptchaContext.jsx";
 
 const ColorPencilTools = () => {
 
   const [openColorPicker, setOpenColorPicker] = useState(false);
   const {pencilColor, setPencilColor} = useTools();
+  const {handleCheckCaptcha, captchaDelock} = useCaptcha();
 
   return (
       <ContainerPencilTools>
@@ -21,7 +23,13 @@ const ColorPencilTools = () => {
         <DropDownImg
             src={openColorPicker ? ArrowUpPng : ArrowDownPng}
             alt="arrow down"
-            onClick={() => setOpenColorPicker(!openColorPicker)}
+            onClick={() => {
+              if (!captchaDelock) {
+                handleCheckCaptcha();
+              } else {
+                setOpenColorPicker(!openColorPicker)
+              }
+            }}
         />
         {
             openColorPicker &&
