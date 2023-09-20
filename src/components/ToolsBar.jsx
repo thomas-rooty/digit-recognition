@@ -36,9 +36,9 @@ const ContainerNavbar = styled.div`
 `;
 
 const Container = styled.div`
-    display: flex;
-    background-color: #FFF8E1;
-    padding: 20px 30px;
+  display: flex;
+  background-color: #fcf2e2;
+  padding: 20px 30px;
 `;
 
 const LogoContainer = styled.div`

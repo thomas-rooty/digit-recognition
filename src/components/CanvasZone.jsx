@@ -60,7 +60,7 @@ const CanvasZone = () => {
 export default CanvasZone;
 
 const ContainerCanvasZone = styled.div`
-  margin: 8rem 0;
+  padding: 8rem 0;
 `;
 
 const ActionsButtons = styled.div`
