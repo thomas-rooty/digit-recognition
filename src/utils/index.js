@@ -13,7 +13,7 @@ import ImageNine from '../assets/predi/nine.png';
 export const API_URL = "https://djangoai.eu-4.evennode.com"
 
 export const randomNumBetween1And9 = () => {
-  return Math.floor(Math.random() * 9) + 1;
+  return Math.floor(Math.random() * 9);
 }
 
 const getImageByNumber = (number) => {
