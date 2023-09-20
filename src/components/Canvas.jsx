@@ -1,6 +1,7 @@
 import {useRef, useEffect, useState, forwardRef, useImperativeHandle} from 'react';
 import styled from "styled-components";
 import {useTools} from "../contexts/ToolsContext.jsx";
+import {useCaptcha} from "../contexts/CaptchaContext.jsx";
 
 
 // eslint-disable-next-line react/prop-types
@@ -8,6 +9,12 @@ const Canvas = ({setUserHasDrawn, isCaptcha ,  ...props}, ref) => {
 
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
+
+  const {
+    handleCheckCaptcha,
+    captchaDelock
+  } = useCaptcha() || {};
+
 
   const {
     pencilWidth,
@@ -53,10 +60,6 @@ const Canvas = ({setUserHasDrawn, isCaptcha ,  ...props}, ref) => {
 
   useEffect(() => {
 
-    if (isCaptcha) {
-
-      console.log("isDrawing", isDrawing);
-    }
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
@@ -86,11 +89,14 @@ const Canvas = ({setUserHasDrawn, isCaptcha ,  ...props}, ref) => {
       } else {
         const canvasRect = canvas.getBoundingClientRect();
         context.lineTo(e.clientX - canvasRect.left, e.clientY - canvasRect.top);
-
       }
 
+      if (!isCaptcha && !captchaDelock) {
+        handleCheckCaptcha();
+      } else {
+        context.stroke();
+      }
 
-      context.stroke();
     };
 
     const stopDrawing = () => {

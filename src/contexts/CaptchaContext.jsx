@@ -29,7 +29,7 @@ export const CaptchaProvider = ({ children }) => {
       MySwal.fire({
         title : "Captcha :",
         html : <div>
-          <ResetH5>For unlock the captcha, you must draw the number <b>{nbr}</b> ! </ResetH5>
+          <ResetH5>To unlock the captcha, you must draw the number <b>{nbr}</b> ! </ResetH5>
           <Canvas style={{marginTop : "20px"}} ref={canvasRef} setUserHasDrawn={() => {}} isCaptcha={true} />
         </div>,
         showDenyButton: true,

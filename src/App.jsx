@@ -8,8 +8,9 @@ const App = () => {
       <ToolsProvider>
         <CaptchaProvider>
           <ToolsBar/>
+          <CanvasZone/>
         </CaptchaProvider>
-        <CanvasZone/>
+
       </ToolsProvider>
   )
 }
