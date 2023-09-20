@@ -9,7 +9,8 @@ import ImageSeven from '../assets/predi/seven.png';
 import ImageEight from '../assets/predi/eight.png';
 import ImageNine from '../assets/predi/nine.png';
 
-export const API_URL = 'http://localhost:8000'
+
+export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
 const getImageByNumber = (number) => {
   switch (number) {
