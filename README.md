@@ -1,5 +1,7 @@
 # Digit Recognition
 
+[Live demo](https://digit-recognition-five.vercel.app/)
+
 ## Dataset
 Create a dataset/ folder, with in it :
 
