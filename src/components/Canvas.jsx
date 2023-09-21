@@ -109,6 +109,20 @@ const Canvas = ({setUserHasDrawn, isCaptcha ,  ...props}, ref) => {
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseout', stopDrawing);
 
+    // adapt to mobile
+    canvas.addEventListener("touchstart", (e) => {
+      startDrawing(e.touches[0]);
+    })
+    canvas.addEventListener("touchmove", (e) => {
+      draw(e.touches[0]);
+    })
+    canvas.addEventListener("touchend", (e) => {
+      stopDrawing(e.touches[0]);
+    })
+    canvas.addEventListener("touchcancel", (e) => {
+      stopDrawing(e.touches[0]);
+    })
+
     window.addEventListener("click", (e) => {
       if (isDrawing) {
         stopDrawing(e);
