@@ -33,4 +33,4 @@ pip install tensorflow==2.11 keras==2.11
 
 [Repo GitHub API Django](https://github.com/thomas-rooty/digit_recognition_api)
 
-[Trello](https://trello.com/b/RxyGv5aZ/projet-ia)https://trello.com/b/RxyGv5aZ/projet-ia
+[Trello](https://trello.com/b/RxyGv5aZ/projet-ia)
