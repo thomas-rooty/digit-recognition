@@ -62,6 +62,7 @@ const ContainerCanvasZone = styled.div`
   padding: 8rem 0;
   @media (max-width: 768px) {
     padding: 4rem 0;
+    overflow: hidden;
   }
 `;
 
