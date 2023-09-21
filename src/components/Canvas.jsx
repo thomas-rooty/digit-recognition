@@ -111,15 +111,19 @@ const Canvas = ({setUserHasDrawn, isCaptcha ,  ...props}, ref) => {
 
     // adapt to mobile
     canvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
       startDrawing(e.touches[0]);
     })
     canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
       draw(e.touches[0]);
     })
     canvas.addEventListener("touchend", (e) => {
+      e.preventDefault();
       stopDrawing(e.touches[0]);
     })
     canvas.addEventListener("touchcancel", (e) => {
+      e.preventDefault();
       stopDrawing(e.touches[0]);
     })
 
